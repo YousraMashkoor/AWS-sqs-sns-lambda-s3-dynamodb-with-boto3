@@ -9,7 +9,7 @@ sqs = boto3.client(
 )
 
 
-queue_url='http://localhost:4566/000000000000/yousra-queue'
+queue_url=os.environ.get('QUEUE_URL')
 msg=input("Enter your message: ")
 response = sqs.send_message(
     QueueUrl=queue_url,

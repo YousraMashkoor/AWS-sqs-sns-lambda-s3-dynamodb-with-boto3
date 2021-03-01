@@ -30,28 +30,29 @@ aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-qu
 
 ## Commands:
 
-### SQS Commands
+### SNS Commands
 
 aws --endpoint-url=http://localhost:4566 sns create-topic --name customqueue-topic
 
 aws --endpoint-url=http://localhost:4566 sns list-topics
 
-aws --endpoint-url=http://localhost:4566 sns subscribe --topic-arn arn:aws:sns:us-east-1:000000000000:customqueue-topic --protocol sqs --notification-endpoint arn:aws:sns:us-east-1:000000000000:my_queue  
+Subscribe to Topic:  
+aws --endpoint-url=http://localhost:4566 sns subscribe --topic-arn arn:aws:sns:us-east-1:000000000000:yousra-topic --protocol sqs --notification-endpoint arn:aws:sns:us-east-1:000000000000:my_queue  
 
-
-aws --endpoint-url=http://localhost:4566 sns publish  --topic-arn arn:aws:sns:us-east-1:000000000000:customqueue-topic --message 'Hello from my app'
+Publish a message:  
+aws --endpoint-url=http://localhost:4566 sns publish  --topic-arn arn:aws:sns:us-east-1:000000000000:yousra-topic --message 'Hello from my app'
 
 --------------------------------------------------------------------------------
 
 ### SQS Commands
 
-Create a Queue:
+Create a Queue:   
 aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-queue
 
-Send Message to the Queue:
+Send Message to the Queue:  
 aws --endpoint-url=http://localhost:4566 sqs send-message --queue-url http://localhost:4566/000000000000/yousra-queue --message-body 'Test Message for my Queue!'
 
-Receive message from the QUeue:
+Receive message from the QUeue:  
 aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue
 
 Recieve 10 messages from Queue:
