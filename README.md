@@ -19,6 +19,9 @@
 export AWS_ACCESS_ID="aws access id"
 export AWS_ACCESS_KEY="aws secret access key"
 export ENDPOINT_URL="http://localhost:4566" 
+
+export QUEUE_URL="http://localhost:4566/000000000000/yousra-queue"
+export TOPIC_ARN="arn:aws:sns:us-east-1:000000000000:yousra-topic"
 ```
 4. source .env
 5. create a queue
@@ -55,7 +58,7 @@ aws --endpoint-url=http://localhost:4566 sqs send-message --queue-url http://loc
 Receive message from the QUeue:  
 aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue
 
-Recieve 10 messages from Queue:
+Recieve 10 messages from Queue:  
 aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue --attribute-names All --message-attribute-names All --max-number-of-messages 10
 
 List Queues:  

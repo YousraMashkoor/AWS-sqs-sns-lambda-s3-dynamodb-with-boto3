@@ -11,4 +11,4 @@ for message in queue.receive_messages():
     # if (response.Type == 'Notification'):
     #     print("notification recieved")
     # else:
-    print(message.body)
+    print(response)
