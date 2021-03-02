@@ -30,10 +30,27 @@ aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-qu
 
 ## Commands:
 
+### S3 Commands
+Create Bucket:  
+aws --endpoint-url=http://localhost:4566 s3 mb s3://yousrabucket
+
+Upload Document:  
+aws --endpoint-url=http://localhost:4566 s3 cp data.json s3://yousrabucket
+
+List Contents:
+aws --endpoint-url=http://localhost:4566 s3 ls s3://yousrabucket
+
+Delete File:
+aws --endpoint-url=http://localhost:4566 s3 rm s3://yousrabucket/data.json
+
+
+
 ### SNS Commands
 
+Create Topic:  
 aws --endpoint-url=http://localhost:4566 sns create-topic --name customqueue-topic
 
+List Topics:  
 aws --endpoint-url=http://localhost:4566 sns list-topics
 
 Subscribe to Topic:  
@@ -55,7 +72,7 @@ aws --endpoint-url=http://localhost:4566 sqs send-message --queue-url http://loc
 Receive message from the QUeue:  
 aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue
 
-Recieve 10 messages from Queue:
+Recieve 10 messages from Queue:  
 aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue --attribute-names All --message-attribute-names All --max-number-of-messages 10
 
 List Queues:  
