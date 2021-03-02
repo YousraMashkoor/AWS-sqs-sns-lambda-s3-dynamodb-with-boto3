@@ -30,6 +30,30 @@ aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-qu
 
 ## Commands:
 
+### Dynamodb
+
+Create DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb create-table --table-name test_table  --attribute-definitions AttributeName=first,AttributeType=S AttributeName=second,AttributeType=N --key-schema AttributeName=first,KeyType=HASH AttributeName=second,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+List DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb list-tables
+
+Describe DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb describe-table --table-name test_table
+
+Put Item:  
+aws --endpoint-url=http://localhost:4566 dynamodb put-item --table-name test_table  --item '{"first":{"S":"Jack"},"second":{"N":"42"}}'
+
+Get Item:  
+aws --endpoint-url=http://localhost:4566 dynamodb put-item --table-name test_table  --item '{"first":{"S":"Jack"},"second":{"N":"42"}}'
+
+Scan/ Display content:  
+aws --endpoint-url=http://localhost:4566 dynamodb scan --table-name test_table
+
+Query DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb query --table-name test_table --projection-expression "#first, #second" --key-condition-expression "#first = :value" --expression-attribute-values '{":value" : {"S":"Jack"}}' --expression-attribute-names '{"#first":"first", "#second":"second"}'
+
+
 ### S3 Commands
 Create Bucket:  
 aws --endpoint-url=http://localhost:4566 s3 mb s3://yousrabucket
@@ -37,10 +61,10 @@ aws --endpoint-url=http://localhost:4566 s3 mb s3://yousrabucket
 Upload Document:  
 aws --endpoint-url=http://localhost:4566 s3 cp data.json s3://yousrabucket
 
-List Contents:
+List Contents:  
 aws --endpoint-url=http://localhost:4566 s3 ls s3://yousrabucket
 
-Delete File:
+Delete File:  
 aws --endpoint-url=http://localhost:4566 s3 rm s3://yousrabucket/data.json
 
 
