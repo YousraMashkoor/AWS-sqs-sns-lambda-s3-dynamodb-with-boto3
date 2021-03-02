@@ -80,3 +80,19 @@ aws --endpoint-url=http://localhost:4566 sqs list-queues
 
 List Subscriptions:  
 aws --endpoint-url=http://localhost:4575 sns list-subscriptions
+
+### Lambda
+
+Create Function:  
+awslocal --endpoint-url=http://localhost:4566 create-function --function-name my-function --zip-file fileb://function.zip --handler index.handler --runtime nodejs12.x --role arn:aws:iam::000000000000:role/lambda-ex
+
+List Functions:  
+awslocal lambda list-functions --max-items 10
+
+Get Function:
+awslocal lambda get-function --function-name my-function
+
+Delete Function:
+awslocal lambda delete-function --function-name my-function
+
+
