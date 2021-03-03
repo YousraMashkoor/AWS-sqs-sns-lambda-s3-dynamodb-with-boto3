@@ -1,4 +1,5 @@
 ### Setup localstack
+http://localhost:4566/health
 
 ### Install AWS CLI
 (CLI https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
