@@ -1,7 +1,13 @@
 import json
 import boto3
+import os
 
-s3 = boto3.client('s3')
+s3 = boto3.client(
+      's3',
+      aws_access_key_id=os.environ.get('AWS_ACCESS_ID'), 
+      aws_secret_access_key=os.environ.get('AWS_ACCESS_KEY'), 
+      endpoint_url=os.environ.get('ENDPOINT_URL')
+   )
 
 def lambda_handler():
    bucket = 'transaction'
@@ -13,7 +19,7 @@ def lambda_handler():
 
    jsonObject = json.loads(content.read())
 
-   transactions = jsonObject['transactions']
+   transactions = jsonObject['transaction']
 
    for record in transactions:
       print("TransactionType: " + record['transactionType'])
