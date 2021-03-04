@@ -11,6 +11,8 @@ awslocal dynamodb create-table --table-name customer  --attribute-definitions At
 ## Create an IAM Role
 awslocal iam create-role --role-name lambda-ex --assume-role-policy-document file://trust-policy.json
 
+awslocal iam list-roles
+
 ## Logs and Cloudwatch
 awslocal logs describe-log-groups
 awslocal cloudwatch list-metrics

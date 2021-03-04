@@ -3,13 +3,10 @@ import boto3
 import os
 
 s3 = boto3.client(
-      's3',
-      aws_access_key_id=os.environ.get('AWS_ACCESS_ID'), 
-      aws_secret_access_key=os.environ.get('AWS_ACCESS_KEY'), 
-      endpoint_url=os.environ.get('ENDPOINT_URL')
+      's3'
    )
 
-def lambda_handler(event, context):
+def handler(event, context):
    bucket = 'transaction'
    key = 'transactions.json'
 

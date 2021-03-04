@@ -3,16 +3,13 @@
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal": {
-          "Service": "lambda.amazonaws.com"
-        },
+        "Principal": {"AWS":"*"},
         "Action": [
                   "s3:*",
-                  "s3:PutObject",
-                  "s3:DeleteObject",
                   "sts:AssumeRole"
                   ],
-        "Resource": "*"
+        "Resource": ["*",
+        "arn:aws:lambda:us-east-1:000000000000:function:my-transaction3"]
       }
     ]
   }
