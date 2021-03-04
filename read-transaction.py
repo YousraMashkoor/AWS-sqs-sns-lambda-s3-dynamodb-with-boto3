@@ -9,7 +9,7 @@ s3 = boto3.client(
       endpoint_url=os.environ.get('ENDPOINT_URL')
    )
 
-def lambda_handler():
+def lambda_handler(event, context):
    bucket = 'transaction'
    key = 'transactions.json'
 
@@ -25,5 +25,3 @@ def lambda_handler():
       print("TransactionType: " + record['transactionType'])
       print("TransactionAmount: " + str(record['amount']))
       print("---")
-
-lambda_handler()
