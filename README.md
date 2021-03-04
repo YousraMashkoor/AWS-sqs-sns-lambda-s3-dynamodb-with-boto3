@@ -120,4 +120,5 @@ awslocal lambda get-function --function-name my-function
 Delete Function:
 awslocal lambda delete-function --function-name my-function
 
+## Cloudwatch and logs
 
