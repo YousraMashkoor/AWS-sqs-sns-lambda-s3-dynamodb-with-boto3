@@ -13,8 +13,5 @@ sys.path.insert(1, '/tmp/')
 import requests
 
 
-def lambda_handler():
+def lambda_handler(event,context):
    print("lambda running")
-   print(process.env.LOCALSTACK_HOSTNAME)
-
-lambda_handler()
