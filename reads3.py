@@ -4,10 +4,13 @@
 import json
 import boto3
 
-s3 = boto3.client('s3')
+s3 = boto3.client('s3',
+    aws_access_key_id="yousra", 
+    aws_secret_access_key="yousra"
+    )
 
 def lambda_handler(event, context):
-   bucket = 'aws-simplified-transactions'
+   bucket = 'transaction'
    key = 'transactions.json'
 
    response = s3.get_object(Bucket=bucket, Key=key)
