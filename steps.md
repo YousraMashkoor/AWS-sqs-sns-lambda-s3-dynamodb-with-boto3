@@ -24,3 +24,11 @@ awslocal cloudwatch list-metrics
 awslocal s3 mb s3://boto3customer
 
 aws --endpoint-url=http://localhost:4566 s3 cp transaction.json s3://transaction
+
+# Create a lambda function
+
+zip function.zip index.py
+
+awslocal lambda create-function --function-name read-bucket --zip-file fileb://function.zip --handler index.handler --runtime python3.6 --role arn:aws:iam::000000000000:role/s3ReadWrite
+
+awslocal lambda invoke --function-name read-bucket out --log-type Tail --query 'LogResult' --output text |  base64 -d
