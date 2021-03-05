@@ -1,4 +1,5 @@
 ### Setup localstack
+http://localhost:4566/health
 
 ### Install AWS CLI
 (CLI https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
@@ -19,9 +20,6 @@
 export AWS_ACCESS_ID="aws access id"
 export AWS_ACCESS_KEY="aws secret access key"
 export ENDPOINT_URL="http://localhost:4566" 
-
-export QUEUE_URL="http://localhost:4566/000000000000/yousra-queue"
-export TOPIC_ARN="arn:aws:sns:us-east-1:000000000000:yousra-topic"
 ```
 4. source .env
 5. create a queue
@@ -29,15 +27,55 @@ export TOPIC_ARN="arn:aws:sns:us-east-1:000000000000:yousra-topic"
 ```bash
 aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-queue
 ```
-
+#### Follow steps.md to run the function
 
 ## Commands:
 
+### Dynamodb
+
+Create DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb create-table --table-name test_table  --attribute-definitions AttributeName=first,AttributeType=S AttributeName=second,AttributeType=N --key-schema AttributeName=first,KeyType=HASH AttributeName=second,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+List DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb list-tables
+
+Describe DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb describe-table --table-name test_table
+
+Put Item:  
+aws --endpoint-url=http://localhost:4566 dynamodb put-item --table-name test_table  --item '{"first":{"S":"Jack"},"second":{"N":"42"}}'
+
+Get Item:  
+aws --endpoint-url=http://localhost:4566 dynamodb put-item --table-name test_table  --item '{"first":{"S":"Jack"},"second":{"N":"42"}}'
+
+Scan/ Display content:  
+aws --endpoint-url=http://localhost:4566 dynamodb scan --table-name test_table
+
+Query DB:  
+aws --endpoint-url=http://localhost:4566 dynamodb query --table-name test_table --projection-expression "#first, #second" --key-condition-expression "#first = :value" --expression-attribute-values '{":value" : {"S":"Jack"}}' --expression-attribute-names '{"#first":"first", "#second":"second"}'
+
+
+### S3 Commands
+Create Bucket:  
+aws --endpoint-url=http://localhost:4566 s3 mb s3://yousrabucket
+
+Upload Document:  
+aws --endpoint-url=http://localhost:4566 s3 cp data.json s3://yousrabucket
+
+List Contents:  
+aws --endpoint-url=http://localhost:4566 s3 ls s3://yousrabucket
+
+Delete File:  
+aws --endpoint-url=http://localhost:4566 s3 rm s3://yousrabucket/data.json
+
+
+
 ### SNS Commands
 
-Create topic:  
+Create Topic:  
 aws --endpoint-url=http://localhost:4566 sns create-topic --name customqueue-topic
 
+List Topics:  
 aws --endpoint-url=http://localhost:4566 sns list-topics
 
 Subscribe to Topic:  
@@ -67,3 +105,20 @@ aws --endpoint-url=http://localhost:4566 sqs list-queues
 
 List Subscriptions:  
 aws --endpoint-url=http://localhost:4575 sns list-subscriptions
+
+### Lambda
+
+Create Function:  
+awslocal --endpoint-url=http://localhost:4566 create-function --function-name my-function --zip-file fileb://function.zip --handler index.handler --runtime nodejs12.x --role arn:aws:iam::000000000000:role/lambda-ex
+
+List Functions:  
+awslocal lambda list-functions --max-items 10
+
+Get Function:
+awslocal lambda get-function --function-name my-function
+
+Delete Function:
+awslocal lambda delete-function --function-name my-function
+
+## Cloudwatch and logs
+
