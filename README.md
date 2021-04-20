@@ -33,36 +33,24 @@ aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-qu
 
 ## Commands:
 
-### SNS Commands
+### Secrets Manager Commands
 
-aws --endpoint-url=http://localhost:4566 sns create-topic --name customqueue-topic
+List Secrets:  
+ aws --endpoint-url=http://localhost:4566 --profile=localstack secretsmanager list-secrets
 
-aws --endpoint-url=http://localhost:4566 sns list-topics
 
-Subscribe to Topic:  
-aws --endpoint-url=http://localhost:4566 sns subscribe --topic-arn arn:aws:sns:us-east-1:000000000000:yousra-topic --protocol sqs --notification-endpoint arn:aws:sns:us-east-1:000000000000:my_queue  
+Create Secrets:  
+aws --endpoint-url=http://localhost:4566 --profile=localstack secretsmanager create-secret --name=postgres --secret-string=[{"username":"postgres","password":"postgres"}]
 
-Publish a message:  
-aws --endpoint-url=http://localhost:4566 sns publish  --topic-arn arn:aws:sns:us-east-1:000000000000:yousra-topic --message 'Hello from my app'
+OR
+
+aws --endpoint-url=http://localhost:4566 --profile=localstack secretsmanager put-secret-value --secret-id=postgres --secret-string file://secrets.json
+
+
+Put Secrets:  
+aws --endpoint-url=http://localhost:4566 --profile=localstack secretsmanager put-secret-value --secret-id=postgres --secret-string=[{"username":"postgres"},{"password":"postgres"}]
+
+Get Secrets:  
+aws --endpoint-url=http://localhost:4566 --profile=localstack secretsmanager get-secret-value --secret-id=postgres
 
 --------------------------------------------------------------------------------
-
-### SQS Commands
-
-Create a Queue:   
-aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name yousra-queue
-
-Send Message to the Queue:  
-aws --endpoint-url=http://localhost:4566 sqs send-message --queue-url http://localhost:4566/000000000000/yousra-queue --message-body 'Test Message for my Queue!'
-
-Receive message from the QUeue:  
-aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue
-
-Recieve 10 messages from Queue:  
-aws --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/yousra-queue --attribute-names All --message-attribute-names All --max-number-of-messages 10
-
-List Queues:  
-aws --endpoint-url=http://localhost:4566 sqs list-queues 
-
-List Subscriptions:  
-aws --endpoint-url=http://localhost:4575 sns list-subscriptions
