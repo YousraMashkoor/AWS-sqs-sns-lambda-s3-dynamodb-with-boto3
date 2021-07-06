@@ -68,6 +68,9 @@ aws --endpoint-url=http://localhost:4566 s3 ls s3://yousrabucket
 Delete File:  
 aws --endpoint-url=http://localhost:4566 s3 rm s3://yousrabucket/data.json
 
+List Buckets:
+aws --endpoint-url=http://localhost:4566 s3api list-buckets
+
 
 
 ### SNS Commands
